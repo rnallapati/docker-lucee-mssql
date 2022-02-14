@@ -13,13 +13,17 @@ services:
       - ./www:/var/www
   database:
     platform: linux/x86_64
-    # image: mcr.microsoft.com/mssql/server:2019-latest
-    image: mcr.microsoft.com/azure-sql-edge:latest
+    image: mcr.microsoft.com/mssql/server:2019-latest
     container_name: mssql
     restart: always
     ports:
         - "1433:1433"
     environment:
-        ACCEPT_EULA: Y
-        SA_PASSWORD: Yahoo123!
+        ACCEPT_EULA: "Y"
+        SA_PASSWORD: "Yahoo123!"
+        TZ: "America/Los_Angeles"
+    volumes:
+      - ./mssql-data:/var/opt/mssql/data
+      - ./mssql-log:/var/opt/mssql/log
+      - ./mssql-secrets:/var/opt/mssql/secrets
 
