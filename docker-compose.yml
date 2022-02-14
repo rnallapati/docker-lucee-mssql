@@ -1,0 +1,29 @@
+version: "3.7"
+
+services:
+  cf:
+    platform: linux/x86_64
+    build: ./
+    container_name: cf
+    restart: always
+    ports:
+      - "80:80"
+      - "8888:8888" # REMOVE IN PROD - THIS IS FOR ADMIN AT http://localhost:8888/lucee/admin/server.cfm
+    volumes:
+      - ./www:/var/www
+  database:
+    platform: linux/x86_64
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: mssql
+    restart: always
+    ports:
+        - "1433:1433"
+    environment:
+        ACCEPT_EULA: "Y"
+        SA_PASSWORD: "Yahoo123!"
+        TZ: "America/Los_Angeles"
+    volumes:
+      - ./mssql-data:/var/opt/mssql/data
+      - ./mssql-log:/var/opt/mssql/log
+      - ./mssql-secrets:/var/opt/mssql/secrets
+

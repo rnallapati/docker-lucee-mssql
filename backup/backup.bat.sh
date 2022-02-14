@@ -1,0 +1,1 @@
+docker cp cf:/opt/lucee/server/lucee-server/context/lucee-server.xml ./
